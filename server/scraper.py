@@ -3,6 +3,7 @@ from playwright.sync_api import sync_playwright
 with sync_playwright() as pw:
     browser = pw.firefox.launch(headless=False)
     page = browser.new_page()
+    page.set_default_timeout(10000)
     page.goto("https://amazon.com")
     print("Inside Amazon.com")
     page.wait_for_timeout(2000)
@@ -25,14 +26,15 @@ with sync_playwright() as pw:
     all_prices = page.locator(prices_locator).all()
     filtered_prices = [price for price in all_prices if price.text_content().strip()]
     print("Filtered & Located Prices")
-    product_prices = filtered_prices[:5]
+    product_prices = filtered_prices[:4]
+    
+    if len(product_titles) != len(product_prices):
+        raise SystemExit(f"Error Unmatched Pairs: \nTitles Scraped: {len(product_titles)} \nPrices Scraped: {len(product_prices)}")
     
     print("found titles and prices\n")
     
     for title, price in zip(product_titles, product_prices):
-        print(title.inner_text())
-        print(price.inner_text())
-        print("")
+        print(f"Title: {title.inner_text()} \nPrice: {price.inner_text()} \n")
     
     scraped_data = []
     
