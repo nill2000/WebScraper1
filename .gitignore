@@ -2,3 +2,4 @@
 venv
 server/playwright
 server/tempCodeRunnerFile.py
+server/testing.py
