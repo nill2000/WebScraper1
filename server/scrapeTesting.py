@@ -25,7 +25,7 @@ with sync_playwright() as pw:
     price_locator = "#apex_desktop div.celwidget div.a-section span.a-price"
     #Price is separated in 3 spans. Return as iterable list and combine
     item_price = page.locator(price_locator).first.all()
-    full_price = "".join([part.text_content().strip() for part in item_price])
+    full_price = "".join([str(part.text_content()).strip() for part in item_price])
     print("Located Price")
     print(full_price)
     
