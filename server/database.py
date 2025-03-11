@@ -1,14 +1,27 @@
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
+from Scraper import scrape_url
 
 load_dotenv()
 
-try:
-    client = MongoClient(os.getenv("MONGOURI"))
-    client.admin.command("ping")
-    print("Connected")
-    db = client["WebScrape1Py"]
-    
-except Exception as e:
-    print(e)
+def get_db():
+    try:
+        client = MongoClient(os.getenv("MONGOURI"))
+        client.admin.command("ping")  # Check connection
+        print("Connected to MongoDB")
+        db = client["WebScrape1Py"]
+        return db
+    except Exception as e:
+        print("MongoDB connection failed:", e)
+        return None
+
+def product_to_db(product_data):
+    db = get_db()
+    if db is not None:
+        try:
+            collection = db["products"]
+            collection.insert_one(product_data)
+            print("Product saved")
+        except Exception as e:
+            print("Insert failed:", e)
