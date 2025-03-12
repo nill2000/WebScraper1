@@ -3,8 +3,9 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from './Components/Login.jsx'
 import Dashboard from "./Components/Dashboard.jsx";
 // import { auth } from './Firebase.js'
-// import './styles/index.css';
+import './styles/index.css';
 import './styles/Login.css';
+import './styles/Dashboard.css';
 
 function App() {
   return (
