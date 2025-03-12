@@ -1,0 +1,58 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+}
+
+body, html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #16a085;
+}
+
+#LoginContainer{
+	min-height: 100px;
+	aspect-ratio: 4/6;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center ;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 10px;
+	background-color:  #ecf0f1;
+}
+
+.LoginHeader{
+	font-size: 2rem;
+	font-weight: bold;
+}
+
+.LoginLabel{
+	align-self: flex-start;
+	padding: 10px 0;
+	padding-left: 5px;
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+
+.LoginInput{
+	font-size: 1rem;
+	border: 2px solid black;
+	border-radius: 5px;
+	padding: 5px;
+}
+
+.LoginBtn{
+	min-width: 5rem;
+	margin-top: 10px;
+	font-size: 15px;
+	border: 2px solid black;
+	border-radius: 10px;
+	padding: 5px;
+	cursor: pointer;
+}
