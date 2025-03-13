@@ -6,6 +6,7 @@ import Dashboard from "./Components/Dashboard.jsx";
 import './styles/index.css';
 import './styles/Login.css';
 import './styles/Dashboard.css';
+import './styles/Item.css'
 
 function App() {
   return (

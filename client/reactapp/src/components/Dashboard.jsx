@@ -1,6 +1,14 @@
-import ItemContent from "./ItemContent";
+import ItemContent from "./ItemContent.jsx";
+import { useState } from "react";
 
 function Dashboard(){
+	const [items, setItems] = useState([]);
+
+	const handleClick = () => {
+		setItems([...items, <ItemContent productName={undefined} productPrice={undefined} key={items.length}></ItemContent>])
+	}
+ 
+
 	return(
 		<div id="DashboardContainer">
 			<div className="Header">Welcome, User</div>
@@ -11,12 +19,12 @@ function Dashboard(){
 					<input className="AddInput" type="url" />
 					<label className="AddLabel"  htmlFor="Nickname">Name</label>
 					<input className="AddInput" type="text" />
-					<button className="ItemBtn">Track Item</button>
+					<button className="ItemBtn" onClick={handleClick}>Track Item</button>
 				</div>
 				<div className="VerticalLine"></div>
 				<div className="TrackPanel">
 					<p className="TrackHeader">Track Item</p>
-					<ItemContent></ItemContent>
+					{items}
 				</div>
 			</div>
 		</div>
@@ -24,3 +32,7 @@ function Dashboard(){
 }
 
 export default Dashboard;
+
+Dashboard.defaultProps = {
+	
+};
