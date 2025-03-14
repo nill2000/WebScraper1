@@ -7,7 +7,7 @@ class BaseScraper:
         
     def fetch_data(self) -> Dict[str, str]:
         with sync_playwright() as pw:
-            browser = pw.firefox.launch(headless=True)
+            browser = pw.firefox.launch(headless=False)
             page = browser.new_page()
             page.set_default_timeout(10000)
             page.goto(self.url)
@@ -24,7 +24,7 @@ class AmazonScraper(BaseScraper):
     def extract_data(self, page: Page) -> dict:
         #Amazon title locator
         print("Scraping Amazon")
-        title_locator = "#productTitle"
+        title_locator = "span#productTitle"
         product_title = page.locator(title_locator).inner_text()
         print("Located Title")
         print(product_title)

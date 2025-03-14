@@ -8,7 +8,7 @@ def main():
     
     # link = input("Paste the Link: ")
     
-    print(scrape_url(link2))
+    print(scrape_url(link1))
     # product_to_db(scrape_url(link1))
     
 if __name__ == "__main__":
