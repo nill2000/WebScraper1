@@ -9,6 +9,7 @@ class BaseScraper:
         with sync_playwright() as pw:
             browser = pw.firefox.launch(headless=True)
             page = browser.new_page()
+            page.set_default_timeout(10000)
             page.goto(self.url)
             
             data = self.extract_data(page)
@@ -22,7 +23,8 @@ class BaseScraper:
 class AmazonScraper(BaseScraper):
     def extract_data(self, page: Page) -> dict:
         #Amazon title locator
-        title_locator = "#centerCol h1#title span#productTitle"
+        print("Scraping Amazon")
+        title_locator = "#productTitle"
         product_title = page.locator(title_locator).inner_text()
         print("Located Title")
         print(product_title)
@@ -39,6 +41,7 @@ class AmazonScraper(BaseScraper):
 class EbayScraper(BaseScraper):
     def extract_data(self, page: Page) -> dict:
         #Ebay title locator
+        print("Scraping Ebay")
         title_locator = "#CenterPanel h1.x-item-title__mainTitle"
         product_title = page.locator(title_locator).inner_text()
         print("Located Title")
