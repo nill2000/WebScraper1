@@ -16,11 +16,11 @@ function Login(){
 		try {
 			if(isRegistering){
 				await createUserWithEmailAndPassword(auth, email, password);
-				console.log("Logging In")
+				console.log("Registering...")
 			} else{
 				await signInWithEmailAndPassword(auth, email, password);;
-				console.log("Registering")
-			} 
+				console.log("Logging In...")
+			}   
 			navigate("/dashboard");
 		} catch (err){
 			console.log("Error logging in");
