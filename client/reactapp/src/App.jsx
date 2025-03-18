@@ -1,7 +1,8 @@
 // import { useState } from 'react'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from './Components/Login.jsx'
-import Dashboard from "./Components/Dashboard.jsx";
+import Login from './components/Login.jsx'
+import Dashboard from "./components/Dashboard.jsx";
+import ProtectedRoute from "./components/ProtectedRoute.jsx";
 // import { auth } from './Firebase.js'
 import './styles/index.css';
 import './styles/Login.css';
@@ -18,7 +19,10 @@ function App() {
 			</Route>
 			<Route 
 				path="/dashboard" 
-				element={<Dashboard/>}>
+				element={
+				<ProtectedRoute>
+					<Dashboard/>
+				</ProtectedRoute>}>
 			</Route>
 		</Routes>
 	</Router>

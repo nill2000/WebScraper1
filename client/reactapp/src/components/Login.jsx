@@ -1,8 +1,9 @@
 import React from 'react';
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Navigate } from 'react-router-dom';
 import { auth } from '../Firebase.js';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { useAuthState } from "react-firebase-hooks/auth";
 
 function Login(){
 	const navigate = useNavigate();
@@ -10,6 +11,14 @@ function Login(){
 	const [password, setPassword] = useState("");
 	// const [isRegistered, setIsRegistered] = useState();
 	const [message, setMessage] = useState("");
+
+	const [user, loading, error] = useAuthState(auth);
+	if(loading){
+		return <p>Loading...</p>
+	}
+	if(user){
+		return <Navigate to="/dashboard"/>
+	}
 
 	const handleClick = async (e, isRegistering) => {
 		e.preventDefault();
