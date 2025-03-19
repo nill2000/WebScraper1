@@ -11,6 +11,21 @@
 	padding: 10px;
 }
 
-.ItemName{
-	align-self: center;
+.FirstItem{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.DeleteBtn{
+	font-size: 1rem;
+	border: 1px solid black;
+	padding: 5px;
+	border-radius: 10px;
+	cursor: pointer;
+	transition: background-color 0.8s ease;
+}
+
+.DeleteBtn:hover{
+	background-color: coral;
 }

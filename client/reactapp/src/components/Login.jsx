@@ -43,7 +43,7 @@ function Login(){
 			<div id="LoginContainer">
 				<p className="LoginHeader">Welcome</p>
 				<p className="LoginHeader">Register or Login</p>
-				<p>{message}</p>
+				<p className='absolute top-96'>{message}</p>
 				<label className="LoginLabel" htmlFor="email">Email</label>
 				<input 
 					className="LoginInput" 
