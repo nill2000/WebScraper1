@@ -9,9 +9,9 @@ function Login(){
 	const navigate = useNavigate();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	// const [isRegistered, setIsRegistered] = useState();
 	const [message, setMessage] = useState("");
 
+	// Code redirects back to dashboard if user is already logged in
 	const [user, loading, error] = useAuthState(auth);
 	if(loading){
 		return <p>Loading...</p>
@@ -20,6 +20,7 @@ function Login(){
 		return <Navigate to="/dashboard"/>
 	}
 
+	// Code logic that checks for authentication for logging in
 	const handleClick = async (e, isRegistering) => {
 		e.preventDefault();
 		try {

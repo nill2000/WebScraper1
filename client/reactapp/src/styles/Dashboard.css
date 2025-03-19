@@ -11,8 +11,26 @@
 	border: 2px dotted black;
 	margin-top: 1rem;
 	font-size: 2.5rem;
-	align-self: center;
+	align-items: center;
+	justify-content: center;
 	font-weight: bold;
+	display: flex;
+	flex-direction: row;
+}
+
+.signOutBtn{
+	position: absolute;
+	right: 1rem;
+	border: 2px solid black;
+	border-radius: 8px;
+	font-size: .8rem;
+	padding: 2px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.signOutBtn:hover{
+	background-color: coral;
 }
 
 .MainContent{

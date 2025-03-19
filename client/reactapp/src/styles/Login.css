@@ -16,7 +16,7 @@
 	justify-content: center ;
 	border: 2px solid black;
 	border-radius: 5px;
-	padding: 10px;
+	padding: 20px;
 	background-color:  #ecf0f1;
 }
 
@@ -42,10 +42,15 @@
 
 .LoginBtn{
 	min-width: 5rem;
-	margin-top: 10px;
+	margin-top: 15px;
 	font-size: 15px;
 	border: 2px solid black;
 	border-radius: 10px;
 	padding: 5px;
 	cursor: pointer;
+	transition: background-color .8s ease;
+}
+
+.LoginBtn:hover{
+	background-color: coral;
 }
