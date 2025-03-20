@@ -4,7 +4,7 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { auth } from '../Firebase'; // adjust if your path is different
 
 function ProtectedRoute({ children }) {
-	const [user, loading, error] = useAuthState(auth);
+	const [user, loading] = useAuthState(auth);
 
 	if (loading) return <p>Loading...</p>;
 

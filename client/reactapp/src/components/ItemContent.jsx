@@ -11,9 +11,17 @@ function ItemContent({productName, productPrice}){
 		<div className="ItemContainer">
 			<div className="FirstItem">
 				<span className="">{productName}</span>
-				<button className="DeleteBtn absolute right-5" onClick={() => setVisible(false)}>Delete</button>
+				<button 
+					className="DeleteBtn absolute right-5" 
+					onClick={() => setVisible(false)}>
+					Delete
+				</button>
 			</div>
-			<a href="" className="underline self-center text-black">Direct to Link</a>
+			<a 
+				href="" 
+				className="underline self-center text-black">
+				Direct to Link
+			</a>
 			<p className="self-center">Price: {productPrice}</p>
 		</div>
 	)

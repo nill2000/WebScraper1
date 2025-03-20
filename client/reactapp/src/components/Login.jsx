@@ -12,7 +12,7 @@ function Login(){
 	const [message, setMessage] = useState("");
 
 	// Code redirects back to dashboard if user is already logged in
-	const [user, loading, error] = useAuthState(auth);
+	const [user, loading] = useAuthState(auth);
 	if(loading){
 		return <p>Loading...</p>
 	}

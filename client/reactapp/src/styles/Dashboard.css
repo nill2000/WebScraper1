@@ -80,6 +80,13 @@
 		cursor: pointer;
 	}
 
+	.scrapeMsg{
+		font-weight: bold;
+		font-size: 2rem;
+		align-self: center;
+		margin-top: 10px;
+	}
+
 }
 
 .TrackPanel{

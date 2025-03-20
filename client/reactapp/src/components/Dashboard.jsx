@@ -7,9 +7,13 @@ function Dashboard(){
 	const [items, setItems] = useState([]);
 	const [url, setUrl] = useState("");
 	const [nickName, setNickName] = useState("");
+	const [isScraping, setIsScraping] = useState(false)
 
 	// Buttons that scrapes data from backend
 	const handleClick = async() => {
+		
+		setIsScraping(true)
+		
 		const response = await fetch("http://127.0.0.1:8000/scrape", {
 			method: "POST",
 			headers: {
@@ -21,6 +25,7 @@ function Dashboard(){
 		const data = await response.json();
 		console.log(data)
 
+		// Add the newly scraped data to the array
 		setItems([...items, 
 		<ItemContent 
 			productName={nickName} 
@@ -30,6 +35,7 @@ function Dashboard(){
 
 		setUrl("")
 		setNickName("")
+		setIsScraping(false)
 	}
 
 	// Buttons had signs user out
@@ -47,11 +53,35 @@ function Dashboard(){
 			<div className="MainContent">
 				<div className="AddPanel">
 					<p className="AddHeader">Add Item</p>
-					<label className="AddLabel" htmlFor="URL">URL</label>
-					<input className="AddInput" value={url} onChange={e => setUrl(e.target.value)} type="url" />
-					<label className="AddLabel"  htmlFor="Nickname">Name</label>
-					<input className="AddInput" value={nickName} onChange={e => setNickName(e.target.value)} type="text" />
-					<button className="ItemBtn" onClick={handleClick}>Track Item</button>
+					<label 
+						className="AddLabel"
+						htmlFor="URL">
+						URL
+					</label>
+					<input 
+						className="AddInput" 
+						value={url} 
+						onChange={e => setUrl(e.target.value)} 
+						type="url" 
+					/>
+					<label 
+						className="AddLabel"  
+						htmlFor="Nickname">
+						Name
+					</label>
+					<input 
+						className="AddInput" 
+						value={nickName} 
+						onChange={e => setNickName(e.target.value)} 
+						type="text" 
+					/>
+					<button 
+						className="ItemBtn" 
+						onClick={handleClick}>
+						Track Item
+					</button>
+					{/* Code to show scraping to keep user notified */}
+					<p className="scrapeMsg">{isScraping && "Scraping..."}</p>
 				</div>
 				<div className="VerticalLine"></div>
 				<div className="TrackPanel">
