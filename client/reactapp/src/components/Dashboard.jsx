@@ -11,7 +11,7 @@ function Dashboard(){
 
 	// Buttons that scrapes data from backend
 	const handleClick = async() => {
-		
+
 		setIsScraping(true)
 		
 		const response = await fetch("http://127.0.0.1:8000/scrape", {
@@ -23,13 +23,14 @@ function Dashboard(){
 		});
 
 		const data = await response.json();
-		console.log(data)
+		console.log(data.link)
 
 		// Add the newly scraped data to the array
 		setItems([...items, 
 		<ItemContent 
 			productName={nickName} 
 			productPrice={data.price || undefined} 
+			productLink={data.link}
 			key={items.length}>
 		</ItemContent>])
 

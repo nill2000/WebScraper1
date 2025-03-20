@@ -22,4 +22,4 @@ def home():
 def scrape(req: ScrapeRequest):
     url = req.url
     data = scrape_url(url)
-    return {"title": data["title"], "price": data["price"]}
+    return {"title": data["title"], "price": data["price"], "link": data["link"]}

@@ -36,7 +36,7 @@ class AmazonScraper(BaseScraper):
         item_price = "".join([str(part.text_content()).strip() for part in item_price]) # type: ignore
         print("Located Price")
         print(item_price)
-        return {"title": product_title, "price": item_price}
+        return {"title": product_title, "price": item_price, "link": page.url}
     
 class EbayScraper(BaseScraper):
     def extract_data(self, page: Page) -> dict:
@@ -52,7 +52,7 @@ class EbayScraper(BaseScraper):
         item_price = page.locator(price_locator).inner_text()
         print("Located Price")
         print(item_price)
-        return {"title": product_title, "price": item_price}
+        return {"title": product_title, "price": item_price, "link": page.url}
 
 scraper_mapping: Dict[str, Type[BaseScraper]] = {
 	"amazon": AmazonScraper,

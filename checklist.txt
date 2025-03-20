@@ -1,6 +1,5 @@
 
 Print Message for Item unscrapable
-Add a "Scraping..." Message
 Return "Message" if title and price aren't available 
 Save Added Item to DB
 Load Items from DB

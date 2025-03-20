@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-function ItemContent({productName, productPrice}){
+function ItemContent({productName, productPrice, productLink}){
 
 	const [visible, setVisible] = useState(true);
 
@@ -18,7 +18,7 @@ function ItemContent({productName, productPrice}){
 				</button>
 			</div>
 			<a 
-				href="" 
+				href={productLink} 
 				className="underline self-center text-black">
 				Direct to Link
 			</a>
