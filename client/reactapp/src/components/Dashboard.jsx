@@ -22,6 +22,7 @@ function Dashboard(){
 				'Content-Type': 'application/json'
 			},
             // The json object thats sent and converted to string
+            // The key must match the models.py
 			body: JSON.stringify({ url: url }),
 		});
 
