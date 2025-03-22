@@ -15,10 +15,13 @@ function Dashboard(){
 		setIsScraping(true)
 		
 		const response = await fetch("http://127.0.0.1:8000/scrape", {
-			method: "POST",
+            // Send information to backend
+			method: "POST", 
+            // Tells what kind of data - sending json data, not raw text or anything else
 			headers: {
 				'Content-Type': 'application/json'
 			},
+            // The json object thats sent and converted to string
 			body: JSON.stringify({ url: url }),
 		});
 

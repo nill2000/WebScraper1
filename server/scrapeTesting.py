@@ -1,5 +1,6 @@
 from playwright.sync_api import sync_playwright
 
+# This file checks if the links and scraping works
 with sync_playwright() as pw:
     browser = pw.firefox.launch(headless=False)
     page = browser.new_page()

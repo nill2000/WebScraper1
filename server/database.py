@@ -5,6 +5,7 @@ from Scraper import scrape_url
 
 load_dotenv()
 
+# Connect to cluster and get correct DB
 def get_db():
     try:
         client = MongoClient(os.getenv("MONGOURI"))
@@ -16,6 +17,7 @@ def get_db():
         print("MongoDB connection failed:", e)
         return None
 
+# Checks if db is connected, connects to collections named products, and inserts data into collections
 def product_to_db(product_data):
     db = get_db()
     if db is not None:

@@ -8,8 +8,9 @@ def main():
     
     # link = input("Paste the Link: ")
     
-    print(scrape_url(link1))
-    # product_to_db(scrape_url(link1))
+    scrapedData = scrape_url(link1)
+    print(scrapedData)
+    # product_to_db(scrapedData)
     
 if __name__ == "__main__":
     main()

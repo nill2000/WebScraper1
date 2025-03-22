@@ -20,6 +20,6 @@ def home():
 
 @app.post("/scrape")
 def scrape(req: ScrapeRequest):
-    url = req.url
+    url = req.url                   #Req is the json sent from frontend. so req.url getting the .url object from frontend
     data = scrape_url(url)
     return {"title": data["title"], "price": data["price"], "link": data["link"]}

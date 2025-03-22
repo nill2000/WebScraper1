@@ -17,9 +17,11 @@ class BaseScraper:
             browser.close()
             return data
         
+    # Method is used by child classes
     def extract_data(self, page: Page):
         raise NotImplementedError("Subclasses Must Use the Method")
     
+# Both Amazon and Ebay inherit BaseScraper Class to use fetch_data
 class AmazonScraper(BaseScraper):
     def extract_data(self, page: Page) -> dict:
         #Amazon title locator
@@ -59,6 +61,8 @@ scraper_mapping: Dict[str, Type[BaseScraper]] = {
 	"ebay": EbayScraper
 }
 
+
+# Checks if url is amazon or ebay only and starts scraping
 def scrape_url(url: str) -> dict:
     for key in scraper_mapping:
         if key in url.lower():
