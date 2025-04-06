@@ -1,3 +1,4 @@
+from bson import ObjectId
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
@@ -23,7 +24,11 @@ def product_to_db(product_data):
     if db is not None:
         try:
             collection = db["products"]
-            collection.insert_one(product_data)
+            inserted_result = collection.insert_one(product_data) #Insert product to db
+            inserted_id = inserted_result.inserted_id #This contains ._id of the current product
             print("Product saved")
+            item = collection.find_one({"_id": inserted_id}) #Grabs the json document of corresponding id
+            print("Retrieved Item Data from DB")
+            return item
         except Exception as e:
             print("Insert failed:", e)
