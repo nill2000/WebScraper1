@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-function ItemContent({productName, productPrice, productLink}){
+function ItemContent({productName, productPrice, productLink, productId}){
 
 	const [visible, setVisible] = useState(true);
 
@@ -8,19 +8,26 @@ function ItemContent({productName, productPrice, productLink}){
     const handleDelete = async () => {
         // Removes from frontend
         setVisible(false);
+		console.log(productId);
+		// Place the id into the path params for backend
+		// productId is saved from the parent code and attaches itself with productID
+        const response = await fetch(`http://127.0.0.1:8000/product_delete/${productId}`, {
+            // Send information to backend
+			method: "DELETE", 
+            // Tells what kind of data - sending json data, not raw text or anything else
+			headers: {
+				'Content-Type': 'application/json'
+			}
+		});
 
-        // const response = await fetch("http://127.0.0.1:8000/product/{item_id}", {
-        //     // Send information to backend
-		// 	method: "DELETE", 
-        //     // Tells what kind of data - sending json data, not raw text or anything else
-		// 	headers: {
-		// 		'Content-Type': 'application/json'
-		// 	},
-            
-		// 	body: JSON.stringify({ item_id: item_id }),
-		// });
+		if (response.ok){
+			console.log("Item deleted");
+		} else{
+			console.log("Error Deleting Item")
+		}
     }
 
+	// Ternary operator for visible. If true, show contents; else show null
 	return(
 		visible ? (<div className="ItemContainer">
 			<div className="FirstItem">

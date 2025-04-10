@@ -27,7 +27,7 @@ function Dashboard(){
 		});
 
 		const data = await response.json();
-		console.log(data.link)
+		console.log(data.id)
 
 		// Add the newly scraped data to the array
 		setItems([...items, 
@@ -35,7 +35,8 @@ function Dashboard(){
 			productName={nickName} 
 			productPrice={data.price || undefined} 
 			productLink={data.link}
-			key={items.length}>
+			key={data.id}
+			productId={data.id}>
 		</ItemContent>])
 
 		setUrl("")

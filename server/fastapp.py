@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from Scraper import scrape_url
 from models import ScrapeRequest, DeleteRequest
-from Database import product_to_db
+from Database import product_to_db, delete_product_db
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -23,9 +23,12 @@ def home():
 def scrape(req: ScrapeRequest):
     url = req.url                   #Req is the json sent from frontend. so req.url getting the .url object from frontend
     data = scrape_url(url)          #Scrapes for the data
-    # product_to_db(data)             #Saves data into database
-    return {"title": data["title"], "price": data["price"], "link": data["link"]}
+    data = product_to_db(data)             #Saves data into database
+    
+    return {"title": data["title"], "price": data["price"], "link": data["link"], "id": data["_id"]}
 
-@app.delete("/products/{item_id}")
-def delete_product(item_id: int):
-    return {"message": f"Deleteing product with id: {item_id}"}
+# Simplified approach compared to sending a json object
+@app.delete("/product_delete/{productId}")
+def delete_product(productId: str):
+    delete_product_db(productId)
+    return {"message": "Delete request made"}

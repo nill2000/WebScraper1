@@ -29,6 +29,25 @@ def product_to_db(product_data):
             print("Product saved")
             item = collection.find_one({"_id": inserted_id}) #Grabs the json document of corresponding id
             print("Retrieved Item Data from DB")
+            if item:
+                item["_id"] = str(item["_id"]) #Converts type ObjectID to string before passing
             return item
         except Exception as e:
             print("Insert failed:", e)
+            return None
+    return None
+
+def delete_product_db(product_id):
+    db = get_db()
+    if db is not None:
+        try:
+            collection = db["products"]
+            result = collection.delete_one({"_id": ObjectId(product_id)})
+            if result.deleted_count == 1:
+                return {"Message": "Successful Delete"}
+            else:
+                return {"Message": "No id found for product"}
+        except Exception as e:
+            print(f"Error: ${e}")
+            return {"Message": "Error Deleting Product"}
+    return {"Message": "DB connection failed"}
