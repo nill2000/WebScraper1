@@ -4,3 +4,4 @@ server/playwright
 server/tempCodeRunnerFile.py
 server/testing.py
 server/__pycache__
+server/itemTrackerGmailNotiCredentials.json
