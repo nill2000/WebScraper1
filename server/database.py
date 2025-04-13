@@ -34,7 +34,7 @@ def product_to_db(product_data):
             return item
         except Exception as e:
             print("Insert failed:", e)
-            return None
+            return {"Message": e}
     return None
 
 def delete_product_db(product_id):
@@ -51,3 +51,21 @@ def delete_product_db(product_id):
             print(f"Error: ${e}")
             return {"Message": "Error Deleting Product"}
     return {"Message": "DB connection failed"}
+
+def get_product_db(product_uid):
+    db = get_db()
+    if db is not None:
+        try:
+            collection = db["products"]
+            products_cursor = collection.find({"uid": product_uid})
+            products = list(products_cursor) #Returns a cursor, so change into an array
+            for product in products: #Convert ObjectId to str
+                product["_id"] = str(product["_id"])
+            print(products)
+            return products
+        except Exception as e:
+            print(e)
+            return{"Message": "Error"}
+    return {"Message": "Connection Error"}
+
+# get_product_db("SvRi6YUtscPP0axKYM7zMEsI8ZA3")
