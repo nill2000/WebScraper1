@@ -1,11 +1,12 @@
 Print Message for Item unscrapable
 Return "Message" if title and price aren't available 
-Load Items from DB
 
 Starting Server:
+
 1 Frontend:
 cd client/reactapp
 npm run dev
+
 2 Backend:
 cd server/fastapp.py
 uvicorn fastapp:app --reload
