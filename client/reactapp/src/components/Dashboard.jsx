@@ -8,20 +8,37 @@ function Dashboard(){
 	const [url, setUrl] = useState("");
 	const [nickName, setNickName] = useState("");
 	const [isScraping, setIsScraping] = useState(false)
-	const user = auth.currentUser;
-	const uid = user.uid;
+	const uid = auth.currentUser.uid;
 
 	useEffect(() => {
-		const getItems =  async () => {
+		const getItems = async () => {
 			const res = await fetch(`http://127.0.0.1:8000/get_products?uid=${uid}`, {
 				method: "GET",
 				headers: {
 					"Content-Type": "application/json"
 				}
 			});
+
 			const data = await res.json();
-		}
-	});
+
+			console.log(data)
+
+			setItems(data.map((product, index) => { //Dont need spread operator because this will be initial array
+				return(
+					<ItemContent 
+						productName={product.nickname} 
+						productPrice={product.price || undefined} 
+						productLink={product.link}
+						key={product.id}
+						productId={product.id}>
+					</ItemContent>
+				)
+				
+			}))
+		};
+		getItems();
+		console.log("Loading Previous Items")
+	}, []);
 
 	// Buttons that scrapes data from backend
 	const handleClick = async() => {
@@ -37,7 +54,7 @@ function Dashboard(){
 			},
             // The json object thats sent and converted to string
             // The key must match the models.py
-			body: JSON.stringify({ url: url, uid: uid }),
+			body: JSON.stringify({ url: url, uid: uid, nickname: nickName }),
 		});
 
 		const data = await response.json();
@@ -46,7 +63,7 @@ function Dashboard(){
 		// Add the newly scraped data to the array
 		setItems([...items, 
 		<ItemContent 
-			productName={nickName} 
+			productName={data.nickname} 
 			productPrice={data.price || undefined} 
 			productLink={data.link}
 			key={data.id}
