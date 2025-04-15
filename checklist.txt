@@ -1,9 +1,5 @@
-Print Message for Item unscrapable
-Return "Message" if title and price aren't available 
-
 Update Price:
-Query all products in the db and rescrape url and compare old and new prices.
-If different, change and make sure to update in frontend.
+
 Have a code scheduler
 Use a notification system
 
