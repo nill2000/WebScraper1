@@ -1,4 +1,4 @@
-from playwright.sync_api import sync_playwright, Page
+from playwright.sync_api import sync_playwright, Page, TimeoutError
 from typing import Dict, Type
 
 class BaseScraper:
@@ -7,15 +7,23 @@ class BaseScraper:
         
     def fetch_data(self) -> Dict[str, str]:
         with sync_playwright() as pw:
-            browser = pw.firefox.launch(headless=False)
-            page = browser.new_page()
-            page.set_default_timeout(10000)
-            page.goto(self.url)
+            try:
+                browser = pw.firefox.launch(headless=False)
+                page = browser.new_page()
+                page.set_default_timeout(5000)
+                page.goto(self.url)
+                
+                data = self.extract_data(page)
+                
+                browser.close()
+                return data
             
-            data = self.extract_data(page)
+            except TimeoutError:
+                return {"Message": "Timeout Error"}
             
-            browser.close()
-            return data
+            except Exception as e:
+                print(e)
+                return {"Message": "Error"}
         
     # Method is used by child classes
     def extract_data(self, page: Page):
@@ -57,8 +65,8 @@ class EbayScraper(BaseScraper):
         return {"title": product_title, "price": item_price, "link": page.url}
 
 scraper_mapping: Dict[str, Type[BaseScraper]] = {
-	"amazon": AmazonScraper,
-	"ebay": EbayScraper
+    "amazon": AmazonScraper,
+    "ebay": EbayScraper
 }
 
 
@@ -68,4 +76,5 @@ def scrape_url(url: str) -> dict:
         if key in url.lower():
             return scraper_mapping[key](url).fetch_data()
         
-    raise ValueError("Unsupported URL")
+    print("Unsupported Url")
+    return {"Error": "Unsupported Url"}

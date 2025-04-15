@@ -29,8 +29,8 @@ function Dashboard(){
 						productName={product.nickname} 
 						productPrice={product.price || undefined} 
 						productLink={product.link}
-						key={product.id}
-						productId={product.id}>
+						key={product._id}
+						productId={product._id}>
 					</ItemContent>
 				)
 				
@@ -57,18 +57,30 @@ function Dashboard(){
 			body: JSON.stringify({ url: url, uid: uid, nickname: nickName }),
 		});
 
-		const data = await response.json();
-		console.log(data.id)
-
-		// Add the newly scraped data to the array
-		setItems([...items, 
-		<ItemContent 
-			productName={data.nickname} 
-			productPrice={data.price || undefined} 
-			productLink={data.link}
-			key={data.id}
-			productId={data.id}>
-		</ItemContent>])
+		if (response.ok){
+			const data = await response.json();
+			// Add the newly scraped data to the array
+			setItems([...items, 
+			<ItemContent 
+				productName={data.nickname || "Error Name"} 
+				productPrice={data.price || "Error Price"} 
+				productLink={data.link || "Error Link"}
+				key={data._id}
+				productId={data._id}>
+			</ItemContent>])
+			console.log("Response was Good")
+		} else{
+			const fallbackKey = `error-${Date.now()}`;
+			setItems([...items, 
+			<ItemContent 
+				productName={"Error Name"} 
+				productPrice={"Error Price"} 
+				productLink={undefined}
+				key={fallbackKey}
+				productId={fallbackKey}>
+			</ItemContent>])
+			console.log("Response was bad")
+		}
 
 		setUrl("")
 		setNickName("")

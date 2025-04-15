@@ -1,4 +1,4 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
 from scraper import scrape_url
 from models import ScrapeRequest
 from database import product_to_db, delete_product_db, get_product_db
@@ -26,14 +26,22 @@ def scrape(req: ScrapeRequest):
     nickname = req.nickname
     data = scrape_url(url)          #Scrapes for the data
     
+    if "title" not in data or "price" not in data:
+        raise HTTPException(status_code=422, detail="Scraping Failed")
+    
     # After getting the mongodb json, add the uid key-value pair
     data["uid"] = uid
     data["nickname"] = nickname
     data = product_to_db(data)             #Saves data into database
     
-    
-    
-    return {"title": data["title"], "price": data["price"], "link": data["link"], "id": data["_id"], "uid": data["uid"], "nickname": data["nickname"]}
+    return {
+        "title": data["title"], 
+        "price": data["price"], 
+        "link": data["link"], 
+        "_id": data["_id"], 
+        "uid": data["uid"], 
+        "nickname": data["nickname"]
+    }
 
 # Simplified approach compared to sending a json object
 @app.delete("/product_delete/{productId}")

@@ -27,7 +27,7 @@ def product_to_db(product_data):
             inserted_result = collection.insert_one(product_data) #Insert product to db
             inserted_id = inserted_result.inserted_id #This contains ._id of the current product
             print("Product saved")
-            item = collection.find_one({"_id": inserted_id}) #Grabs the json document of corresponding id
+            item = collection.find_one({"_id": ObjectId(inserted_id)}) #Grabs the json document of corresponding id
             print("Retrieved Item Data from DB")
             if item:
                 item["_id"] = str(item["_id"]) #Converts type ObjectID to string before passing

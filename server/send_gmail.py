@@ -7,11 +7,11 @@ from database import get_product_db
 from typing import cast
 from pymongo import MongoClient
 
+load_dotenv()
+
 client = MongoClient(os.getenv("MONGOURI"))
 db = client['WebScrape1Py']
 collection = db['products']
-
-load_dotenv()
 
 def check_price():
     products = get_product_db(None)
@@ -25,8 +25,8 @@ def check_price():
 
 def send_notification():
     try:
-        yag = yagmail.SMTP(user=os.environ.get("email"), password=os.getenv("app_pw"))
-        yag.send(to=os.environ.get("email"), subject='ItemTracker', contents='Testing')
+        yag = yagmail.SMTP(user=os.getenv("email"), password=os.getenv("app_pw"))
+        yag.send(to=os.getenv("email"), subject='ItemTracker', contents='Testing')
         print("Email sent successfully")
     except Exception as e:
         print("Error, email was not sent")
