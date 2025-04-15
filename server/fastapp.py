@@ -1,7 +1,7 @@
 from fastapi import FastAPI
-from Scraper import scrape_url
-from models import ScrapeRequest, DeleteRequest
-from Database import product_to_db, delete_product_db, get_product_db
+from scraper import scrape_url
+from models import ScrapeRequest
+from database import product_to_db, delete_product_db, get_product_db
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()

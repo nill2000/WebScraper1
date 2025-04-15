@@ -1,14 +1,6 @@
-from pydantic import BaseModel, HttpUrl
-
+from pydantic import BaseModel
 class ScrapeRequest(BaseModel):
     url: str
     uid: str
     nickname: str
     
-class DeleteRequest(BaseModel):
-    id: int
-class Product(BaseModel):
-    user_id: str
-    product_name: str
-    product_price: str
-    url: HttpUrl

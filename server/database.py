@@ -2,7 +2,7 @@ from bson import ObjectId
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
-from Scraper import scrape_url
+from scraper import scrape_url
 
 load_dotenv()
 
