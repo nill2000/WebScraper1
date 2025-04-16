@@ -1,4 +1,3 @@
-import yagmail
 import os
 from dotenv import load_dotenv
 from scraper import scrape_url
@@ -13,8 +12,8 @@ client = MongoClient(os.getenv("MONGOURI"))
 db = client['WebScrape1Py']
 collection = db['products']
 
-def check_price():
-    products = get_product_db(None)
+def check_price(uid):
+    products = get_product_db(uid)
     for product in cast(list[dict], products):
         current_price = product["price"] #Grab the price in the document
         new_price = scrape_url(product["url"])["price"] #Grab the newly scraped price
@@ -23,19 +22,6 @@ def check_price():
             product["price"] = new_price
     return None
 
-def send_notification():
-    try:
-        yag = yagmail.SMTP(user=os.getenv("email"), password=os.getenv("app_pw"))
-        yag.send(
-            to=os.getenv("email"), 
-            subject='ItemTracker', 
-            contents='Testing',
-            headers={"From": "WebScrape Alerts <ItemTrackerNoti@gmail.com>"}
-            )
-        print("Email sent successfully")
-    except Exception as e:
-        print("Error, email was not sent")
-        print(e)
     
 def resend_noti():
     email = os.getenv("email", "")
@@ -52,7 +38,6 @@ def resend_noti():
     
     except Exception as e:
         print(e)
-    
     
     pass
 

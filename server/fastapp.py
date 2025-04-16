@@ -3,6 +3,7 @@ from scraper import scrape_url
 from models import ScrapeRequest
 from database import product_to_db, delete_product_db, get_product_db
 from fastapi.middleware.cors import CORSMiddleware
+from send_noti import check_price
 
 app = FastAPI()
 # uvicorn fastapp:app --reload
@@ -29,10 +30,10 @@ def scrape(req: ScrapeRequest):
     if "title" not in data or "price" not in data:
         raise HTTPException(status_code=422, detail="Scraping Failed")
     
-    # After getting the mongodb json, add the uid key-value pair
-    data["uid"] = uid
-    data["nickname"] = nickname
-    data = product_to_db(data)             #Saves data into database
+    
+    data["uid"] = uid 			#Add the uid from frontend
+    data["nickname"] = nickname #Add the nickname from frontend
+    data = product_to_db(data)  #Saves data into database
     
     return {
         "title": data["title"], 
@@ -51,7 +52,7 @@ def delete_product(productId: str):
 
 @app.get("/get_products")
 def get_products(uid: str):
-    print(uid)
-    result = get_product_db(uid)
+    check_price(uid) #Check the price and update db
+    result = get_product_db(uid) #Grab stuff from db
     print("Loading Products from DB")
     return result

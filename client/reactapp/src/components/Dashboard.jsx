@@ -11,37 +11,44 @@ function Dashboard(){
 	const uid = auth.currentUser.uid;
 
 	useEffect(() => {
-		const getItems = async () => {
-			const res = await fetch(`http://127.0.0.1:8000/get_products?uid=${uid}`, {
-				method: "GET",
-				headers: {
-					"Content-Type": "application/json"
-				}
-			});
-
-			const data = await res.json();
-
-			console.log(data)
-
-			setItems(data.map((product, index) => { //Dont need spread operator because this will be initial array
-				return(
-					<ItemContent 
-						productName={product.nickname} 
-						productPrice={product.price || undefined} 
-						productLink={product.link}
-						key={product._id}
-						productId={product._id}>
-					</ItemContent>
-				)
-				
-			}))
-		};
 		getItems();
 		console.log("Loading Previous Items")
+
+		const intervalCheck = setInterval(() => { //Runs every hour; a special function that doesnt need to be called.
+			console.log("Checking Updates...");
+			getItems();
+		}, 3600000);
+
+		return () => clearInterval(intervalCheck); //Cleanup to prevent double interval calling - for example
 	}, []);
 
+	const getItems = async () => {
+		const res = await fetch(`http://127.0.0.1:8000/get_products?uid=${uid}`, {
+			method: "GET",
+			headers: {
+				"Content-Type": "application/json"
+			}
+		});
+
+		const data = await res.json();
+		console.log(data)
+
+		setItems(data.map((product, index) => { //Dont need spread operator because this will be initial array
+			return(
+				<ItemContent 
+					productName={product.nickname} 
+					productPrice={product.price || undefined} 
+					productLink={product.link}
+					key={product._id}
+					productId={product._id}>
+				</ItemContent>
+			)
+			
+		}))
+	};
+
 	// Buttons that scrapes data from backend
-	const handleClick = async() => {
+	const handleAddItem = async() => {
 
 		setIsScraping(true)
 		
@@ -126,7 +133,7 @@ function Dashboard(){
 					/>
 					<button 
 						className="ItemBtn" 
-						onClick={handleClick}>
+						onClick={handleAddItem}>
 						Track Item
 					</button>
 					{/* Code to show scraping to keep user notified */}
