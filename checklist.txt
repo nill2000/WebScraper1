@@ -1,7 +1,5 @@
-Update Price:
-
-Have a code scheduler
-Use a notification system
+1. Check if Prices are Updates
+2. Work on attaching user email to the notification system
 
 Starting Server:
 

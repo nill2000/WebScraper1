@@ -9,6 +9,7 @@ function Dashboard(){
 	const [nickName, setNickName] = useState("");
 	const [isScraping, setIsScraping] = useState(false)
 	const uid = auth.currentUser.uid;
+	const userEmail = auth.currentUser.email
 
 	useEffect(() => {
 		getItems();

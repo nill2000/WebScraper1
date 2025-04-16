@@ -20,6 +20,7 @@ def check_price(uid):
         if new_price != current_price:
             collection.update_one({"_id": product['_id']}, {"$set": {"price": new_price}}) #Find the matching product and replace the price with new price but only the price itself
             product["price"] = new_price
+            resend_noti() #Send notification to email since price updated
     return None
 
     
