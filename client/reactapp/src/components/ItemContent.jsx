@@ -2,20 +2,14 @@ import React, { useState } from "react";
 function ItemContent({productName, productPrice, productLink, productId}){
 
 	const [visible, setVisible] = useState(true);
-
 	
-
     const handleDelete = async () => {
-        // Removes from frontend
-        setVisible(false);
+        setVisible(false); // Removes from frontend
 		console.log(productId);
-		// Place the id into the path params for backend
+        const response = await fetch(`http://127.0.0.1:8000/product_delete/${productId}`, { // Place the id into the path params for backend
 		// productId is saved from the parent code and attaches itself with productID
-        const response = await fetch(`http://127.0.0.1:8000/product_delete/${productId}`, {
-            // Send information to backend
-			method: "DELETE", 
-            // Tells what kind of data - sending json data, not raw text or anything else
-			headers: {
+			method: "DELETE", // Send information to backend
+			headers: { // Tells what kind of data - sending json data, not raw text or anything else
 				'Content-Type': 'application/json'
 			}
 		});

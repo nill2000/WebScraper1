@@ -22,6 +22,7 @@ def home():
 
 @app.post("/scrape")
 def scrape(req: ScrapeRequest):
+    print("Scraping Data")
     url = req.url                   #Req is the json sent from frontend. so req.url getting the .url object from frontend
     uid = req.uid
     nickname = req.nickname
@@ -49,11 +50,13 @@ def scrape(req: ScrapeRequest):
 # Simplified approach compared to sending a json object
 @app.delete("/product_delete/{productId}")
 def delete_product(productId: str):
+    print("Deleting a Product")
     delete_product_db(productId)
     return {"message": "Delete request made"}
 
 @app.get("/get_products") #Loads the products from db first
 def get_products(uid: str):
+    print("Rendering Product from DB")
     check_price(uid) #Check the price and update db
     result = get_product_db(uid) #Grab stuff from db
     print("Loading Products from DB")

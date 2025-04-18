@@ -24,10 +24,10 @@ function Login(){
 	const handleClick = async (e, isRegistering) => {
 		e.preventDefault();
 		try {
-			if(isRegistering){
-				await createUserWithEmailAndPassword(auth, email, password);
+			if(isRegistering){ //Create user if registering
+				await createUserWithEmailAndPassword(auth, email, password); 
 				console.log("Registering...")
-			} else{
+			} else{ //Otherwise, login
 				await signInWithEmailAndPassword(auth, email, password);;
 				console.log("Logging In...")
 			}   

@@ -11,7 +11,7 @@ function Dashboard(){
 	const uid = auth.currentUser.uid;
 	const userEmail = auth.currentUser.email
 
-	// === Fetch Data Section ===
+	// === Fetch Data Section === BEGIN
 	useEffect(() => {
 		getItems();
 		console.log("Loading Previous Items")
@@ -37,7 +37,7 @@ function Dashboard(){
 
 		setItems(data.map((product, index) => { //Dont need spread operator because this will be initial array
 			return(
-				<ItemContent 
+				<ItemContent //No spread operator so no dupes will called again by setInterval function
 					productName={product.nickname} 
 					productPrice={product.price || undefined} 
 					productLink={product.link}
@@ -48,8 +48,9 @@ function Dashboard(){
 			
 		}))
 	};
+	// === Fetch Data Section === END
 
-	// === Item Management Section ===
+	// === Item Management Section === BEGIN
 	const handleAddItem = async() => {
 
 		setIsScraping(true)
@@ -64,7 +65,7 @@ function Dashboard(){
 			body: JSON.stringify({ url: url, uid: uid, nickname: nickName, userEmail: userEmail }),
 		});
 
-		if (response.ok){
+		if (response.ok){ //If response went well
 			const data = await response.json();
 			setItems([...items, // Add the newly scraped data to the array
 			<ItemContent 
@@ -75,7 +76,7 @@ function Dashboard(){
 				productId={data._id}>
 			</ItemContent>])
 			console.log("Response was Good")
-		} else{
+		} else{ //If response went bad
 			const fallbackKey = `error-${Date.now()}`;
 			setItems([...items, 
 			<ItemContent 
@@ -92,12 +93,13 @@ function Dashboard(){
 		setNickName("")
 		setIsScraping(false)
 	}
+	// === Item Management Section === END
 
-	// === User Authentication Section ===
+	// === User Authentication Section === BEGIN
 	const handleSignOut = () => {
 		signOut(auth);
 	}
- 
+	// === User Authentication Section === END
 
 	return(
 		<div id="DashboardContainer">
