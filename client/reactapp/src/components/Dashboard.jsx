@@ -11,6 +11,7 @@ function Dashboard(){
 	const uid = auth.currentUser.uid;
 	const userEmail = auth.currentUser.email
 
+	// === Fetch Data Section ===
 	useEffect(() => {
 		getItems();
 		console.log("Loading Previous Items")
@@ -23,7 +24,7 @@ function Dashboard(){
 		return () => clearInterval(intervalCheck); //Cleanup to prevent double interval calling - for example
 	}, []);
 
-	const getItems = async () => {
+	const getItems = async () => { //Function gets items from db first
 		const res = await fetch(`http://127.0.0.1:8000/get_products?uid=${uid}`, {
 			method: "GET",
 			headers: {
@@ -48,27 +49,24 @@ function Dashboard(){
 		}))
 	};
 
-	// Buttons that scrapes data from backend
+	// === Item Management Section ===
 	const handleAddItem = async() => {
 
 		setIsScraping(true)
 		
-		const response = await fetch("http://127.0.0.1:8000/scrape", {
-            // Send information to backend
-			method: "POST", 
-            // Tells what kind of data - sending json data, not raw text or anything else
+		const response = await fetch("http://127.0.0.1:8000/scrape", { // Send information to backend
+			method: "POST", // Tells what kind of data - sending json data, not raw text or anything else
 			headers: {
 				'Content-Type': 'application/json'
 			},
             // The json object thats sent and converted to string
             // The key must match the models.py
-			body: JSON.stringify({ url: url, uid: uid, nickname: nickName }),
+			body: JSON.stringify({ url: url, uid: uid, nickname: nickName, userEmail: userEmail }),
 		});
 
 		if (response.ok){
 			const data = await response.json();
-			// Add the newly scraped data to the array
-			setItems([...items, 
+			setItems([...items, // Add the newly scraped data to the array
 			<ItemContent 
 				productName={data.nickname || "Error Name"} 
 				productPrice={data.price || "Error Price"} 
@@ -95,7 +93,7 @@ function Dashboard(){
 		setIsScraping(false)
 	}
 
-	// Buttons had signs user out
+	// === User Authentication Section ===
 	const handleSignOut = () => {
 		signOut(auth);
 	}

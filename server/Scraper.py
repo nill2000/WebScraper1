@@ -8,7 +8,7 @@ class BaseScraper:
     def fetch_data(self) -> Dict[str, str]:
         with sync_playwright() as pw:
             try:
-                browser = pw.firefox.launch(headless=False)
+                browser = pw.firefox.launch(headless=True)
                 page = browser.new_page()
                 page.set_default_timeout(5000)
                 page.goto(self.url)

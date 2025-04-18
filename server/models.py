@@ -3,4 +3,5 @@ class ScrapeRequest(BaseModel):
     url: str
     uid: str
     nickname: str
+    userEmail: str
     

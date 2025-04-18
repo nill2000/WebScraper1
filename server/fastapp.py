@@ -25,14 +25,16 @@ def scrape(req: ScrapeRequest):
     url = req.url                   #Req is the json sent from frontend. so req.url getting the .url object from frontend
     uid = req.uid
     nickname = req.nickname
+    email = req.userEmail
     data = scrape_url(url)          #Scrapes for the data
     
-    if "title" not in data or "price" not in data:
+    if "title" not in data or "price" not in data: #Checks if title or price is scraped from the website
         raise HTTPException(status_code=422, detail="Scraping Failed")
     
     
     data["uid"] = uid 			#Add the uid from frontend
     data["nickname"] = nickname #Add the nickname from frontend
+    data["email"] = email		#Adds email for notification
     data = product_to_db(data)  #Saves data into database
     
     return {
@@ -50,7 +52,7 @@ def delete_product(productId: str):
     delete_product_db(productId)
     return {"message": "Delete request made"}
 
-@app.get("/get_products")
+@app.get("/get_products") #Loads the products from db first
 def get_products(uid: str):
     check_price(uid) #Check the price and update db
     result = get_product_db(uid) #Grab stuff from db
