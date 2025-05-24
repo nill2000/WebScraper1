@@ -1,0 +1,4 @@
+{
+  "tailwindAttributes": ["TestingClass"],
+  "plugins": ["prettier-plugin-tailwindcss"]
+}
